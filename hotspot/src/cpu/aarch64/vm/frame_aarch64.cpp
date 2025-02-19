@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2013, Red Hat Inc.
  * Copyright (c) 1997, 2021, Oracle and/or its affiliates.
+ * Copyrithg (c) 2025, Datadog, Inc.
  * All rights reserved.
  * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
  *
@@ -84,7 +85,8 @@ bool frame::safe_for_sender(JavaThread *thread) {
   // So unextended sp must be within the stack but we need not to check
   // that unextended sp >= sp
 
-  bool unextended_sp_safe = (unextended_sp < thread->stack_base());
+  bool unextended_sp_safe = (unextended_sp < thread->stack_base() && \
+                             sp >= thread->stack_base() - thread->stack_size());
 
   if (!unextended_sp_safe) {
     return false;
